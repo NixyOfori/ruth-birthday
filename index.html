@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ruth, open this! 🎉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#2b2250;--cream:#fff4c9;--coral:#ff7a59;--teal:#2ec4b6;--purple:#7b5cff;--sun:#ffd23f;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;color:var(--ink);text-align:center;overflow-x:hidden;font-family:"Nunito",system-ui,sans-serif;
+background:var(--cream) radial-gradient(#ffe48a 2.5px,transparent 2.5px) 0 0/28px 28px fixed}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:5}
+.balloon{position:fixed;bottom:-70px;pointer-events:none;z-index:0;animation:up linear infinite}
+@keyframes up{to{transform:translate(var(--dx),-120vh) rotate(var(--rot))}}
+main{position:relative;z-index:1;max-width:520px;margin:0 auto;padding:30px 20px;min-height:100vh;display:flex;flex-direction:column;
+justify-content:center;align-items:center;gap:16px}
+main.top{justify-content:flex-start;padding-top:20px;padding-bottom:90px}
+main>*{animation:pop .5s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes pop{from{opacity:0;transform:scale(.85) translateY(10px)}}
+h1,h2{font-family:"Fredoka",system-ui,sans-serif;font-weight:700;margin:0;line-height:1.15;color:var(--ink)}
+h1{font-size:clamp(34px,10vw,50px)}
+h2{font-size:clamp(27px,8vw,36px)}
+p{margin:4px 0;font-size:clamp(17px,4.6vw,19px);line-height:1.5}
+.note{font-family:"Caveat",cursive;font-size:26px;color:var(--purple);font-weight:700}
+.big{font-size:70px}.bounce{animation:bn .8s ease-in-out infinite alternate!important}
+@keyframes bn{to{transform:translateY(-14px) rotate(6deg)}}
+button{font:inherit;font-family:"Fredoka",sans-serif;font-weight:600;font-size:19px;padding:13px 26px;cursor:pointer;color:var(--ink);
+background:var(--sun);border:3px solid var(--ink);border-radius:14px;box-shadow:4px 4px 0 var(--ink);transition:transform .12s,box-shadow .12s}
+button:active{transform:translate(4px,4px);box-shadow:0 0 0 var(--ink)}
+.teal{background:#7ff0e4}.coral{background:#ffa88f}.purple{background:#c3b4ff}
+#mus{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;z-index:10;width:46px;height:46px;padding:0;display:none;place-items:center;font-size:20px}
+#dbg{position:fixed;left:8px;right:8px;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);z-index:20;background:#2b2250;color:#fff;font:14px/1.4 monospace;padding:8px 10px;border-radius:8px}
+/* title + bunting */
+#hb span{display:inline-block;animation:hop 1s ease-in-out infinite;animation-delay:calc(var(--i)*.07s)}
+#hb span:nth-child(3n){color:var(--coral)}#hb span:nth-child(3n+1){color:var(--purple)}
+@keyframes hop{50%{transform:translateY(-10px)}}
+.bunting{display:flex;justify-content:space-between;width:100%;border-top:3px solid var(--ink);margin-top:-6px}
+.bunting span{display:block;border-top:30px solid;border-left:16px solid transparent;border-right:16px solid transparent}
+/* cake */
+.cake{display:flex;flex-direction:column;align-items:center;margin:6px 0}
+.candles{display:flex;gap:30px}
+.candle{width:11px;height:36px;border-radius:3px;border:2px solid var(--ink);position:relative;background:repeating-linear-gradient(135deg,#fff 0 6px,var(--coral) 6px 12px)}
+.flame{position:absolute;top:-24px;left:-2px;width:15px;height:21px;background:radial-gradient(#fff6c8,#ffd23f 55%,#ff8a2b);
+border-radius:50% 50% 50% 50%/62% 62% 38% 38%;animation:fl .35s ease-in-out infinite alternate;transition:opacity .4s}
+.out .flame{opacity:0;animation:none}
+@keyframes fl{to{transform:scale(1.12,.9) rotate(5deg)}}
+.t{height:38px;border:3px solid var(--ink);border-radius:12px;margin-top:-3px}
+.t1{width:150px;background:#ffa88f}.t2{width:212px;background:var(--sun)}.t3{width:274px;background:#7ff0e4}
+.plate{width:312px;height:12px;background:#fff;border:3px solid var(--ink);border-radius:50%;margin-top:-3px}
+/* dancing stickers + letter */
+.stage2{position:relative;display:flex;gap:20px;justify-content:center;width:100%;padding:18px 0 10px}
+.sticker{width:104px;height:104px;border-radius:50%;background:#fff;border:4px solid var(--ink);display:grid;place-items:center;font-size:58px;
+box-shadow:5px 5px 0 var(--ink);animation:dance .55s ease-in-out infinite alternate}
+.s2{animation-delay:.27s;background:var(--sun)}
+@keyframes dance{from{transform:rotate(-12deg)}to{transform:rotate(12deg) translateY(-14px) scale(1.07)}}
+.mn{position:absolute;bottom:50px;font-size:26px;animation:nt 3s linear infinite}
+@keyframes nt{from{opacity:1}to{opacity:0;transform:translateY(-80px) rotate(20deg)}}
+#card{width:100%;background:#fff;border:3px solid var(--ink);border-radius:18px;padding:22px 20px 8px;box-shadow:6px 6px 0 var(--ink);text-align:left}
+#card p{font-family:"Caveat",cursive;font-size:clamp(25px,6.6vw,29px);line-height:1.3;margin:0 0 16px;white-space:pre-line}
+#card p.sig{text-align:right;color:var(--purple);font-weight:700}
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<button id="mus" class="purple" aria-label="Toggle music">🔊</button>
+<main id="m"></main>
+<script>
+const FROM='Nana Kojo';
+/* MUSIC: put your song's exact file name FIRST in this list (e.g. 'my-song.mp3'). The page tries them in order. */
+const MUSIC=['music.mp3','Music.mp3','song.mp3','audio.mp3'];
+
+const m=document.getElementById('m'), cv=document.getElementById('c'), cx=cv.getContext('2d'), mus=document.getElementById('mus');
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+let fast=false;
+function size(){cv.width=innerWidth;cv.height=innerHeight}size();addEventListener('resize',size);
+
+/* ---------- music (starts on the very first tap; keeps retrying on later taps) ---------- */
+let dbg=null;
+if(location.search.includes('debug')){dbg=document.createElement('div');dbg.id='dbg';dbg.textContent='🔊 audio: waiting…';document.body.appendChild(dbg)}
+const status=s=>{if(dbg)dbg.textContent='🔊 audio: '+s};
+const bgm=new Audio();bgm.loop=true;bgm.preload='auto';bgm.volume=.4;
+let mi=0,userMuted=false;
+function loadTrack(){bgm.src=encodeURI(MUSIC[mi]);bgm.load()}
+bgm.addEventListener('canplay',()=>status('file found ('+MUSIC[mi]+'). Tap the page if you hear nothing.'));
+bgm.addEventListener('error',()=>{
+  if(mi<MUSIC.length-1){mi++;loadTrack()}
+  else status('FILE NOT FOUND or not a real mp3. Tried: '+MUSIC.join(', '));
+});
+function startMusic(){
+  if(userMuted||!bgm.paused)return;
+  const p=bgm.play();
+  if(p)p.then(()=>{mus.style.display='grid';mus.textContent='🔊';status('PLAYING ✅ ('+MUSIC[mi]+')')}).catch(e=>status('not started yet: '+e.name));
+}
+addEventListener('click',startMusic,true);addEventListener('touchend',startMusic,true);
+mus.onclick=()=>{
+  if(bgm.paused){userMuted=false;bgm.play();mus.textContent='🔊'}else{userMuted=true;bgm.pause();mus.textContent='🔇'}
+};
+loadTrack();
+
+/* balloons floating up in the background */
+for(let i=0;i<9;i++){
+  const b=document.createElement('div');b.className='balloon';b.textContent='🎈';
+  b.style.cssText=`left:${Math.random()*95}%;font-size:${30+Math.random()*22}px;--dx:${(Math.random()-.5)*90}px;--rot:${(Math.random()-.5)*50}deg;`+
+  `animation-duration:${12+Math.random()*12}s;animation-delay:${-Math.random()*20}s`;
+  document.body.appendChild(b);
+}
+
+/* confetti (can shoot from the left, middle or right) */
+let parts=[],running=false;
+function burst(n=140,fx=.5,em=['🎂','🎉','🥳','🎈','🎊']){
+  const cols=['#ff7a59','#ffd23f','#2ec4b6','#7b5cff','#ffffff','#ffa88f'];
+  for(let i=0;i<n;i++)parts.push({x:cv.width*fx,y:cv.height*.5,vx:(Math.random()-.5)*16,vy:-Math.random()*15-3,
+  s:Math.random()*8+6,c:cols[i%6],r:Math.random()*6,e:Math.random()<.45?em[i%em.length]:null});
+  if(!running){running=true;loop()}
+}
+function loop(){
+  cx.clearRect(0,0,cv.width,cv.height);
+  parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=.3;p.vx*=.995;p.r+=.2;cx.save();cx.translate(p.x,p.y);
+    if(p.e){cx.font=(p.s*3)+'px serif';cx.textAlign='center';cx.fillText(p.e,0,0)}
+    else{cx.rotate(p.r);cx.fillStyle=p.c;cx.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6)}cx.restore()});
+  parts=parts.filter(p=>p.y<cv.height+40);
+  if(parts.length)requestAnimationFrame(loop);else{cx.clearRect(0,0,cv.width,cv.height);running=false}
+}
+async function type(el,t,sp=30){
+  let i=0;
+  for(const ch of t){
+    el.textContent+=ch;if(++i%5===0)scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+    await sleep(fast?0:sp*(.55+Math.random()*.9)+(/[.,?!]/.test(ch)?sp*5:0));
+  }
+}
+const bunting=()=>`<div class="bunting">${['#ff7a59','#ffd23f','#2ec4b6','#7b5cff'].concat(['#ff7a59','#ffd23f','#2ec4b6','#7b5cff','#ff7a59']).map(c=>`<span style="border-top-color:${c}"></span>`).join('')}</div>`;
+
+/* PAGE 1: who is the birthday girl? */
+function q1(){
+  fast=false;m.className='';
+  m.innerHTML=`<div class="big bounce">🎂</div><h1>Who is the birthday girl? 🤔</h1>
+  <button id="b">Ruth is the birthday girl 🙋‍♀️</button>`;
+  document.getElementById('b').onclick=q2;
+}
+/* PAGE 2: it's you */
+function q2(){
+  m.innerHTML=`<div class="big bounce">👀</div><h1>The birthday girl is you, Ruth! 🎉</h1>
+  <button id="b" class="teal">Yes, it's meeeeee! 🙋‍♀️</button>`;
+  document.getElementById('b').onclick=party;
+}
+/* PAGE 3: party */
+function party(){
+  m.innerHTML=`${bunting()}<h1 id="hb"></h1><p style="font-size:34px">🎂 🎁 🎈 🥳 🎊</p>
+  <p class="note">It's your day, Ruth!</p><button id="b" class="coral">Continue 🎂</button>`;
+  const w=s=>[...s].map((c,i)=>`<span style="--i:${i}">${c===' '?'&nbsp;':c}</span>`).join('');
+  document.getElementById('hb').innerHTML=w('Happy Birthday')+'<br>'+w('Ruth!');
+  burst(220);setTimeout(()=>burst(120,.2),600);setTimeout(()=>burst(120,.8),900);
+  document.getElementById('b').onclick=wish;
+}
+/* PAGE 4: wish + blow the candles */
+function wish(){
+  m.innerHTML=`<h2>Make a wish, Ruth 🤫</h2><p>Your heavenly Father is listening 🙏</p>
+  <div class="cake" id="ck"><div class="candles"><div class="candle"><div class="flame"></div></div>
+  <div class="candle"><div class="flame"></div></div><div class="candle"><div class="flame"></div></div></div>
+  <div class="t t1"></div><div class="t t2"></div><div class="t t3"></div><div class="plate"></div></div>
+  <p class="note" id="h">Are you done? 🤭</p><button id="b">Blow the candles 💨</button>`;
+  const b=document.getElementById('b'),h=document.getElementById('h');
+  b.onclick=async()=>{
+    b.style.display='none';h.textContent='';document.getElementById('ck').classList.add('out');
+    await sleep(700);burst(150);await sleep(1600);
+    b.textContent='Open your message 💌';b.className='teal';b.style.display='';b.onclick=letter;
+  };
+}
+/* PAGE 5: dancing stickers + message */
+const LINES=[
+ "Happy birthday Ruth Badoo! God bless you and enjoy your day. Make excitement in life, and have fun too. 🎉",
+ "Before you ask… YES Ruth, I did this for you. I am very extra 😎",
+ "I hope today is full of laughter, good food, cake (a LOT of cake) and zero stress 🍰",
+ "May your wallet be heavy and may you go out more in this new age. 💸✨",
+ "Now go and eat cake. That's not a request, it's an order 🎂😤",
+ `— ${FROM}, your favourite person 😎`
+];
+async function letter(){
+  fast=false;m.className='top';
+  m.innerHTML=`<div class="stage2"><span class="mn" style="left:12%">🎶</span><span class="mn" style="left:80%;animation-delay:1s">🎵</span>
+  <span class="mn" style="left:46%;animation-delay:2s">🎶</span><div class="sticker">💃</div><div class="sticker s2">🕺</div></div>
+  <div id="card"></div><p class="note">(tap to speed up)</p>`;
+  m.onclick=()=>{fast=true};
+  await sleep(1400);
+  const card=document.getElementById('card');
+  for(let i=0;i<LINES.length;i++){
+    const p=document.createElement('p');if(i===LINES.length-1)p.className='sig';
+    card.appendChild(p);await type(p,LINES[i]);await sleep(fast?0:450);
+  }
+  m.onclick=null;
+  const b=document.createElement('button');b.textContent='Next 🎉';b.className='coral';b.onclick=finale;
+  m.appendChild(b);b.scrollIntoView({behavior:'smooth',block:'center'});
+}
+/* PAGE 6: finale */
+function finale(){
+  fast=false;m.className='';m.onclick=null;
+  m.innerHTML=`${bunting()}<div class="big bounce">🥳</div><h1>Happy Birthday Ruth!</h1><h2>Enjoy your day 😎🎂</h2>
+  <button id="b" class="teal">↺ Play again</button>`;
+  const em=['🎂','🍰','😎','🎉','🥳','🧁'];
+  burst(170,.2,em);burst(170,.8,em);setTimeout(()=>burst(200,.5,em),700);setTimeout(()=>{burst(120,.15,em);burst(120,.85,em)},1600);
+  document.getElementById('b').onclick=q1;
+}
+q1();
+</script>
+</body>
+</html>
